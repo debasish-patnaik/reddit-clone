@@ -11,7 +11,7 @@ export default {
   },
   dbName: 'reddit-clone',
   user: 'postgres',
-  password: 'postgres',
+  password: '12qwaszx',
   type: 'postgresql',
   debug: !__prod__,
   entities: [Post, User],

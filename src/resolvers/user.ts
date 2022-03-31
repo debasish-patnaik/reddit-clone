@@ -81,7 +81,17 @@ export class UserResolver {
       // user = result[0];
       await em.persistAndFlush(user);
     } catch (error) {
-      if (error.code === '23505' || error.detail.includes('already exists')) {
+      if (error.code === '23505') {
+        if (error.detail.includes('email')) {
+          return {
+            errors: [
+              {
+                field: 'email',
+                message: 'email already taken',
+              },
+            ],
+          };
+        }
         return {
           errors: [{ field: 'username', message: 'username already taken' }],
         };

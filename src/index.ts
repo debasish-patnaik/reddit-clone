@@ -18,6 +18,8 @@ const main = async () => {
 
   await dataSource.initialize();
 
+  // await dataSource.runMigrations();
+
   const RedisStore = connectRedis(session);
   const redis = new Redis();
 

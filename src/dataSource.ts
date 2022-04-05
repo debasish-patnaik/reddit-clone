@@ -1,3 +1,4 @@
+import path from 'path';
 import { DataSource } from 'typeorm';
 import { Post } from './entities/Post';
 import { User } from './entities/User';
@@ -10,5 +11,6 @@ export const dataSource = new DataSource({
   password: '12qwaszx',
   logging: true,
   synchronize: true,
+  migrations: [path.join(__dirname, './migrations/*')],
   entities: [Post, User],
 });

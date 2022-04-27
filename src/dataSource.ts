@@ -7,7 +7,7 @@ import { User } from './entities/User';
 export const dataSource = new DataSource({
   type: 'postgres',
   database: 'reddit-clone2',
-  port: 5434,
+  port: 5432,
   username: 'postgres',
   password: '12qwaszx',
   logging: true,

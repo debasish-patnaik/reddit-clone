@@ -11,7 +11,8 @@ import { dataSource } from './dataSource';
 import { HelloResolver } from './resolvers/hello';
 import { PostResolver } from './resolvers/post';
 import { UserResolver } from './resolvers/user';
-import { MyContext } from './types';
+import { createUpdootLoader } from './utils/createUpdootLoader';
+import { createUserLoader } from './utils/createUserLoader';
 
 const main = async () => {
   const app = express();
@@ -49,7 +50,13 @@ const main = async () => {
       resolvers: [HelloResolver, PostResolver, UserResolver],
       validate: false,
     }),
-    context: ({ req, res }): MyContext => ({ req, res, redis }),
+    context: ({ req, res }) => ({
+      req,
+      res,
+      redis,
+      userLoader: createUserLoader(),
+      updootLoader: createUpdootLoader(),
+    }),
   });
 
   apolloServer.applyMiddleware({ app, cors: false });

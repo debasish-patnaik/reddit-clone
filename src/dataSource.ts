@@ -1,3 +1,4 @@
+import 'dotenv-safe/config';
 import path from 'path';
 import { DataSource } from 'typeorm';
 import { Post } from './entities/Post';
@@ -6,12 +7,10 @@ import { User } from './entities/User';
 
 export const dataSource = new DataSource({
   type: 'postgres',
-  database: 'reddit-clone2',
   port: 5434,
-  username: 'postgres',
-  password: '12qwaszx',
+  url: process.env.DATABASE_URL,
   logging: true,
-  synchronize: true,
+  // synchronize: true,
   migrations: [path.join(__dirname, './migrations/*')],
   entities: [Post, User, Updoot],
 });

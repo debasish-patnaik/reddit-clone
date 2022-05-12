@@ -37,10 +37,11 @@ const main = async () => {
         disableTouch: true,
       }),
       cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
+        maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 years
         httpOnly: true,
         sameSite: 'lax', // csrf
         secure: __prod__, // cookie only works in https
+        domain: __prod__ ? '.rakiyun.site' : undefined,
       },
       saveUninitialized: false,
       secret: process.env.SESSION_SECRET,

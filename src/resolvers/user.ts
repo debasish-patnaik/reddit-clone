@@ -12,7 +12,7 @@ import {
   Root,
 } from 'type-graphql';
 import { v4 } from 'uuid';
-import { COOKIE_NAME, FORGET_PASSWORD_PREFIX } from '../constants';
+import { COOKIE_NAME, FORGET_PASSWORD_PREFIX, __prod__ } from '../constants';
 import { dataSource } from '../dataSource';
 import { User } from '../entities/User';
 import { MyContext } from '../types';
@@ -235,7 +235,11 @@ export class UserResolver {
   logout(@Ctx() { req, res }: MyContext) {
     return new Promise((resolve) =>
       req.session.destroy((err) => {
-        res.clearCookie(COOKIE_NAME);
+        res.clearCookie(COOKIE_NAME, {
+          sameSite: 'lax', // csrf
+          secure: __prod__, // cookie only works in https
+          domain: __prod__ ? '.rakiyun.site' : undefined,
+        });
         if (err) {
           console.log(err);
           resolve(false);
